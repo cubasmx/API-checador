@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.hikvision import obtener_eventos_recientes
 from app.database.database import engine, Base
 from app.routes import employees, check_ins, reports
 
@@ -11,6 +12,18 @@ app = FastAPI(
     description="API para gestionar entrada y salida de empleados",
     version="1.0.0"
 )
+
+@app.get("/checador/en-vivo")
+def ver_checadas_actuales():
+    eventos = obtener_eventos_recientes(max_results=10)
+    if eventos is None:
+        return {"error": "No se pudo conectar con el checador"}
+    
+    return {
+	"status": "ok",
+	"total": len(eventos),
+	"data": eventos
+}
 
 # Configurar CORS
 app.add_middleware(
