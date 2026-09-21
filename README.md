@@ -1,5 +1,7 @@
 # API Reloj Checador
 
+[![tests](https://github.com/cubasmx/API-checador/actions/workflows/tests.yml/badge.svg)](https://github.com/cubasmx/API-checador/actions/workflows/tests.yml)
+
 Una API moderna construida con FastAPI para gestionar entrada y salida de empleados (sistema de asistencia).
 
 ## Características
@@ -56,6 +58,20 @@ La API estará disponible en: `http://localhost:8000`
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
+## Pruebas
+
+Las pruebas corren sobre una base SQLite temporal (no tocan tu base real ni
+el checador físico). Cubren empleados, el flujo entrada/salida y los reportes
+diario, mensual y por departamento.
+
+```bash
+pip install -r requirements-dev.txt
+pytest -q
+```
+
+Las mismas pruebas corren en cada push y pull request vía GitHub Actions
+(`.github/workflows/tests.yml`).
+
 ## Estructura del proyecto
 
 ```
@@ -75,7 +91,15 @@ API-checador/
 │   │   └── database.py   # Conexión y sesión
 │   ├── config.py         # Configuración general
 │   └── main.py           # Aplicación principal
+├── tests/                # Pruebas automatizadas (pytest)
+│   ├── conftest.py       # Base SQLite temporal + cliente de pruebas
+│   └── test_api.py       # Empleados, checadas y reportes
+├── scripts/
+│   └── verificar_hikvision.py  # Diagnóstico manual contra el equipo Hikvision
+├── .github/workflows/tests.yml # CI: pruebas en cada push
 ├── requirements.txt      # Dependencias
+├── requirements-dev.txt  # Dependencias de pruebas
+├── pytest.ini            # Configuración de pytest
 ├── .env.example         # Variables de entorno (ejemplo)
 └── README.md            # Este archivo
 ```

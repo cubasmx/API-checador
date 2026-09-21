@@ -8,3 +8,10 @@ __pycache__/
 *.py[cod]
 *.db
 *.sqlite3
+
+# Entornos virtuales
+venv/
+.venv/
+
+# Pruebas
+.pytest_cache/

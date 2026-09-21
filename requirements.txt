@@ -10,3 +10,7 @@ pytz==2023.3
 python-jose==3.3.0
 passlib==1.7.4
 python-multipart==0.0.6
+
+# Necesarias en tiempo de ejecución (faltaban: la app no arrancaba desde cero)
+requests==2.34.2          # app/hikvision.py
+email-validator==2.3.0    # pydantic EmailStr en app/schemas/employee.py
