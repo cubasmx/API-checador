@@ -1,3 +1,5 @@
+import os
+
 import requests
 
 from requests.auth import HTTPDigestAuth
@@ -8,15 +10,10 @@ import time
 
 
 HIK_CONFIG = {
-
-    "ip": "10.10.2.250",
-
-    "port": "8081",
-
-    "user": "admin",
-
-    "pass": "Ensa2025"
-
+    "ip": os.getenv("HIK_IP", ""),
+    "port": os.getenv("HIK_PORT", "8081"),
+    "user": os.getenv("HIK_USER", ""),
+    "pass": os.getenv("HIK_PAS", ""),
 }
 
 def obtener_eventos_recientes(max_results=250):

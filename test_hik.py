@@ -1,10 +1,15 @@
+import os
+
 import requests
 from requests.auth import HTTPDigestAuth
 
 def probar_puerto(port):
-    ip = "10.10.2.250"
-    user = "admin"
-    password = "Ensa2025"
+    if not (os.getenv("HIK_IP") and os.getenv("HIK_USER") and os.getenv("HIK_PAS")):
+        raise SystemExit("Faltan HIK_IP / HIK_USER / HIK_PAS en el entorno (.env)")
+
+    ip = os.getenv("HIK_IP", "")
+    user = os.getenv("HIK_USER", "")
+    password = os.getenv("HIK_PAS", "")
     url = f"http://{ip}:{port}/ISAPI/System/deviceInfo"
     
     print(f"--- Probando puerto {port} ---")
